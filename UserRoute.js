@@ -1,0 +1,15 @@
+const express=require('express')
+const {signUp,login,logout,getAllUsers,get,updateUser,deleteUser,validateSignup,validateLogin,handleValidationErrors}=require('../controller/userController')
+const{verifyToken,refreshToken}=require("../config/isAuth")
+const router=express.Router()
+router.post('/signup',validateSignup,handleValidationErrors,signUp)
+router.post('/login',validateLogin,handleValidationErrors,login)
+router.post('/logout/:id',logout)
+router.get('/getAllUsers',verifyToken,refreshToken,getAllUsers)
+router.get('/get/:id',verifyToken,refreshToken,get)
+router.patch('/updateUser/:id',verifyToken,refreshToken,updateUser)
+router.delete('/delete/:id',verifyToken,refreshToken,deleteUser)
+router.post('/refresh-token',refreshToken)
+module.exports=router
+const app=express()
+ 
